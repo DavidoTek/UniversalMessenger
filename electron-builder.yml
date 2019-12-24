@@ -1,0 +1,20 @@
+productName: "UniversalMessenger"
+appId: "net.davidotek.universalmessenger"
+
+asar: true
+
+win:
+  icon: "umsg.ico"
+  target:
+    - "zip"
+    - "nsis"
+
+nsis:
+    oneClick: false
+    perMachine: false
+    allowToChangeInstallationDirectory: true
+
+linux:
+  category: "network"
+  target:
+    - "AppImage"
