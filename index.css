@@ -1,0 +1,99 @@
+#titlebar {
+    z-index: 999;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    background-color: #222222;
+    color: red;
+
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    right: 0;
+    position: fixed;
+    width: 100%;
+}
+
+
+/* Buttons on title bar */
+
+#ultitlebuttons {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    -webkit-app-region: no-drag;
+}
+
+.lititlebutton {
+    float: left;
+    margin-left: 2px;
+}
+
+.btntitlebutton {
+    height: 32px;
+    width: 32px;
+
+    border: 0;
+    outline: none;
+
+    background-color: #222222;
+    color: white;
+}
+
+/* Windows control buttons X _ */
+
+#ulwindowbuttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    
+    -webkit-app-region: no-drag;
+}
+
+.liwindowbutton {
+    float: left;
+}
+
+.btnwindowbutton {
+    height: 32px;
+    width: 48px;
+
+    border: 0;
+    outline: none;
+
+    background-color: #222222;
+    color: white;
+}
+
+#btnclose {
+    background: url(btnclose.png);
+}
+
+#btnminimize {
+    background: url(btnminimize.png);
+}
+
+#btnmaximize {
+    background: url(btnmaximize.png);
+}
+
+#btnclose:hover {
+    background-color: #FF2222;
+}
+
+#btnminimize:hover {
+    background-color: #444444;
+}
+
+#btnmaximize:hover {
+    background-color: #444444;
+}

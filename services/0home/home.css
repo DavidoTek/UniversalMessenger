@@ -1,0 +1,17 @@
+html {
+    background-color: #222222;
+    color: white;
+}
+
+#btnclearcookies {
+    border: 0;
+    height: 50px;
+    width: 200px;
+
+    background-color: #999999;
+    color: #000000;
+}
+
+#btnclearcookies:hover {
+    background-color: #bbbbbb;
+}
