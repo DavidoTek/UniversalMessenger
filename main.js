@@ -1,4 +1,4 @@
-const { app, BrowserWindow, BrowserView, ipcMain, session } = require('electron')
+const { app, BrowserWindow, BrowserView, ipcMain, session, shell } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const config = require('electron-json-config')
@@ -42,7 +42,10 @@ function createWindow () {
   view.setBounds({x: 0, y: 32, width: 800, height: 568})
   view.setAutoResize({width: true, height: true})
   view.webContents.loadFile(path.join(app.getAppPath(), services['0home'].localfile))
-
+  view.webContents.on('new-window', (event, url) => {
+    event.preventDefault()
+    shell.openExternal(url)
+  })
 }
 
 app.on('ready', createWindow)
@@ -113,6 +116,7 @@ function showSettings() {
     height: 600,
     resizable: false,
     icon: path.join(app.getAppPath(), 'umsg.ico'),
+    title: 'UniversalMessenger ' + app.getVersion() + ' Settings',
     webPreferences: {
       preload: path.join(app.getAppPath(), 'settingspage/preload.js')
     }
