@@ -2,3 +2,21 @@ html {
     background-color: #222222;
     color: white;
 }
+
+#ulservices {
+    list-style: none;
+}
+
+footer {
+    position: fixed;
+    bottom: 4px;
+    left: 4px;
+}
+
+button {
+    border: none;
+    background-color: #444444;
+    color: white;
+    height: 40px;
+    width: 100px;
+}

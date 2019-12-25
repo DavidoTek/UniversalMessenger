@@ -1,6 +1,7 @@
 const { app, BrowserWindow, BrowserView, ipcMain, session } = require('electron')
 const path = require('path')
 const fs = require('fs')
+const config = require('electron-json-config')
 
 let win
 let view
@@ -25,7 +26,9 @@ function createWindow () {
   addServices()
   win.webContents.on('did-finish-load', () => {
     for (var name in services) {
-      win.webContents.send('addservice', services[name])
+      if(config.get(name + '.enabled', true)) {
+        win.webContents.send('addservice', services[name])
+      }
     }
   })
   
@@ -39,6 +42,7 @@ function createWindow () {
   view.setBounds({x: 0, y: 32, width: 800, height: 568})
   view.setAutoResize({width: true, height: true})
   view.webContents.loadFile(path.join(app.getAppPath(), services['0home'].localfile))
+
 }
 
 app.on('ready', createWindow)
@@ -70,12 +74,22 @@ ipcMain.on('selectservice', (event, arg) => {
   }
 })
 
+ipcMain.on('deletecookies', (event, arg) => {
+  session.defaultSession.clearStorageData([], (data) => {})
+})
+
+ipcMain.on('restartapp', (event, arg) => {
+  app.relaunch()
+  app.quit()
+})
+
 function viewLoadURL(url) {
   view.webContents.loadURL(url, {
       userAgent: win.webContents.getUserAgent().replace(/(Electron|universalmessenger)\/([0-9\.]+)\ /gi, "")
   });
 }
 
+// reads all services and adds them to 'services'
 function addServices() {
   var servicespath = path.join(app.getAppPath(), 'services')
   
@@ -86,18 +100,24 @@ function addServices() {
     data = fs.readFileSync(jsonfile)
     var serviceinfo = JSON.parse(data)
     services[serviceinfo.name] = serviceinfo
+    if (!serviceinfo.appservice) {
+      config.set(serviceinfo.name + '.name', serviceinfo.name)
+    }
   })
 }
 
+// Shows the settings window
 function showSettings() {
   settingswin = new BrowserWindow({
     width: 400,
     height: 600,
+    resizable: false,
     icon: path.join(app.getAppPath(), 'umsg.ico'),
     webPreferences: {
       preload: path.join(app.getAppPath(), 'settingspage/preload.js')
     }
   })
+  settingswin.setMenu(null)
 
   settingswin.loadFile('settingspage/settings.html')
   

@@ -37,7 +37,9 @@ function addService(name, icon, color) {
 
     btn.addEventListener('click', () => {
         window.selectService(name)
-        titlebar.style.backgroundColor = color;
+        if (color != 'nochange') {
+            titlebar.style.backgroundColor = color;
+        }
     })
 
 
