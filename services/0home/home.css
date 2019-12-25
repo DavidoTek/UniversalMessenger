@@ -15,3 +15,9 @@ html {
 #btnclearcookies:hover {
     background-color: #bbbbbb;
 }
+
+footer {
+    position: fixed;
+    bottom: 4px;
+    left: 4px;
+}
