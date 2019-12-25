@@ -94,6 +94,7 @@ function viewLoadURL(url) {
 
 // reads all services and adds them to 'services'
 function addServices() {
+  // Read preinstalled services
   var servicespath = path.join(app.getAppPath(), 'services')
   
   var files = fs.readdirSync(servicespath)
@@ -103,6 +104,25 @@ function addServices() {
     data = fs.readFileSync(jsonfile)
     var serviceinfo = JSON.parse(data)
     services[serviceinfo.name] = serviceinfo
+    services[serviceinfo.name].iconpath = path.join(app.getAppPath(), 'services', serviceinfo.name, 'icon.png').replace(/\\/g, "/")
+    if (!serviceinfo.appservice) {
+      config.set(serviceinfo.name + '.name', serviceinfo.name)
+    }
+  })
+
+  // Read user-added services
+  servicespath = path.join(app.getPath('userData'), 'services')
+  
+  files = fs.readdirSync(servicespath)
+  console.log(servicespath + ' files: ' + files)
+
+  files.forEach((file) => {
+    var jsonfile = path.join(servicespath, file, 'service.json')
+    data = fs.readFileSync(jsonfile)
+    var serviceinfo = JSON.parse(data)
+    services[serviceinfo.name] = serviceinfo
+    services[serviceinfo.name].iconpath = path.join(app.getPath('userData'), 'services', serviceinfo.name, 'icon.png').replace(/\\/g, "/")
+    
     if (!serviceinfo.appservice) {
       config.set(serviceinfo.name + '.name', serviceinfo.name)
     }

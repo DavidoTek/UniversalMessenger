@@ -33,7 +33,8 @@ function addService(name, icon, color) {
     
     btn.setAttribute('class', 'btntitlebutton')
     btn.setAttribute('id', 'btnservice' + name)
-    btn.style.background = 'url("' + icon + '")'
+    btn.style.background = 'url(' + icon + ')'
+    alert(btn.style.background)
 
     btn.addEventListener('click', () => {
         window.selectService(name)
@@ -51,6 +52,6 @@ function addService(name, icon, color) {
 window.addEventListener('message', (event) => {
     if (event.source != window) return
     if (event.data.type && (event.data.type == "ADDSERVICE")) {
-        addService(event.data.text.name, "./services/" + event.data.text.name + "/icon.png", event.data.text.color)
+        addService(event.data.text.name, event.data.text.iconpath, event.data.text.color)
     }
 })
