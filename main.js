@@ -37,7 +37,7 @@ function createWindow () {
   win.setBrowserView(view)
   view.setBounds({x: 0, y: 32, width: 800, height: 568})
   view.setAutoResize({width: true, height: true})
-  view.webContents.loadFile(path.join(app.getAppPath(), services['0home']))
+  view.webContents.loadFile(path.join(app.getAppPath(), services['0home'].localfile))
 }
 
 app.on('ready', createWindow)
