@@ -135,11 +135,14 @@ function addServices() {
   })
 }
 
+// takes decoded service file as argument and saves the service in userdata/services
 function addUserService(serviceinfo) {
   var servicepath = path.join(app.getPath('userData'), 'services', serviceinfo.name)
   fs.mkdirSync(servicepath)
   var data = JSON.stringify(serviceinfo)
   fs.writeFileSync(path.join(servicepath, 'service.json'), data)
+  let buff = new Buffer(serviceinfo.icon64, 'base64')
+  fs.writeFileSync(path.join(servicepath, 'icon.png'), buff)
 }
 
 // Shows the settings window
