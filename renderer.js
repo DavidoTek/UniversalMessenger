@@ -34,7 +34,6 @@ function addService(name, icon, color) {
     btn.setAttribute('class', 'btntitlebutton')
     btn.setAttribute('id', 'btnservice' + name)
     btn.style.background = 'url(' + icon + ')'
-    alert(btn.style.background)
 
     btn.addEventListener('click', () => {
         window.selectService(name)
