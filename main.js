@@ -119,8 +119,8 @@ function addServices() {
   // Read user-added services
   servicespath = path.join(app.getPath('userData'), 'services')
   
-  if(!fs.existsSync(servicepath)) {
-    fs.mkdirSync(servicepath)
+  if(!fs.existsSync(servicespath)) {
+    fs.mkdirSync(servicespath)
   }
   
   files = fs.readdirSync(servicespath)
