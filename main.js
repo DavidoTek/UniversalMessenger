@@ -31,6 +31,7 @@ function createWindow () {
   
   win.on('closed', () => {
     win = null
+    app.quit()
   })
 
   view = new BrowserView()
@@ -62,6 +63,8 @@ app.on('activate', () => {
 ipcMain.on('selectservice', (event, arg) => {
   if (services[arg].localfile) {
     view.webContents.loadFile(path.join(app.getAppPath(), services[arg].localfile))
+  } else if (services[arg].settingsfile) {
+    showSettings()
   } else {
     viewLoadURL(services[arg].weburl)
   }
@@ -83,5 +86,22 @@ function addServices() {
     data = fs.readFileSync(jsonfile)
     var serviceinfo = JSON.parse(data)
     services[serviceinfo.name] = serviceinfo
+  })
+}
+
+function showSettings() {
+  settingswin = new BrowserWindow({
+    width: 400,
+    height: 600,
+    icon: path.join(app.getAppPath(), 'umsg.ico'),
+    webPreferences: {
+      preload: path.join(app.getAppPath(), 'settingspage/preload.js')
+    }
+  })
+
+  settingswin.loadFile('settingspage/settings.html')
+  
+  settingswin.on('closed', () => {
+    settingswin = null
   })
 }
