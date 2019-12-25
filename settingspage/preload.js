@@ -21,3 +21,7 @@ window.deleteCookies = function () {
 window.restartapp = function () {
     ipcRenderer.send('restartapp')
 }
+
+window.addservicefile = function (file) {
+    ipcRenderer.send('addservicefile', file)
+}

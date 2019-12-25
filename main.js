@@ -86,6 +86,12 @@ ipcMain.on('restartapp', (event, arg) => {
   app.quit()
 })
 
+ipcMain.on('addservicefile', (event, arg) => {
+  var data = fs.readFileSync(arg)
+  var serviceinfofile = JSON.parse(data)
+  addUserService(serviceinfofile)
+})
+
 function viewLoadURL(url) {
   view.webContents.loadURL(url, {
       userAgent: win.webContents.getUserAgent().replace(/(Electron|universalmessenger)\/([0-9\.]+)\ /gi, "")
@@ -127,6 +133,13 @@ function addServices() {
       config.set(serviceinfo.name + '.name', serviceinfo.name)
     }
   })
+}
+
+function addUserService(serviceinfo) {
+  var servicepath = path.join(app.getPath('userData'), 'services', serviceinfo.name)
+  fs.mkdirSync(servicepath)
+  var data = JSON.stringify(serviceinfo)
+  fs.writeFileSync(path.join(servicepath, 'service.json'), data)
 }
 
 // Shows the settings window

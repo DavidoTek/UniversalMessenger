@@ -40,3 +40,32 @@ var btnresetcookies = document.getElementById('btnresetcookies')
 btnresetcookies.addEventListener('click', () => {
     window.deleteCookies()
 })
+
+/* Service file drag'n'drop */
+var servicedrag = document.getElementById('servicedrag')
+
+servicedrag.ondragover = () => {
+    return false;
+};
+
+servicedrag.ondragleave = () => {
+    return false;
+};
+
+servicedrag.ondragend = () => {
+    return false;
+};
+
+servicedrag.ondrop = (e) => {
+    e.preventDefault();
+
+    for (let f of e.dataTransfer.files) {
+        window.addservicefile(f.path)
+    }
+    
+    return false;
+};
+
+/*servicedrag.addEventListener('drop', (event) => {
+    alert(event.dataTransfer.files)
+})*/
