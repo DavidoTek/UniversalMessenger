@@ -112,6 +112,7 @@ function addServices() {
 // Shows the settings window
 function showSettings() {
   settingswin = new BrowserWindow({
+    parent: win,
     width: 400,
     height: 600,
     resizable: false,
